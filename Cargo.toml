@@ -1,0 +1,24 @@
+[package]
+name = "radio-song-recognition"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+base64 = "0.12.3"
+byteorder = "1.5.0"
+chfft = "0.3.4"
+crc32fast = "1.4.0"
+gettext-rs = "0.7.0"
+rand = "0.8.5"
+reqwest = { version = "0.12.3", features = ["blocking", "json"] }
+rodio = "0.17.3"
+serde_json = "1.0.115"
+uuid = { version = "0.8.1", features = ["v4"] }
+# songrec = { version = "0.4.2", features = ["ffmpeg"] }
+tokio = { version = "1.23.1", features = ["macros", "rt"] }
+stream-download = { version = "0.5.2", features = ["temp-storage"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+# tokio = { version = "1.23.1", features = ["sync", "macros", "rt"] }

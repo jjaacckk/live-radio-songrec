@@ -1,5 +1,5 @@
 [package]
-name = "radio-song-recognition"
+name = "radio-song-rec"
 version = "1.0.0"
 edition = "2021"
 readme = "README.md"
@@ -22,3 +22,4 @@ tokio = { version = "1.23.1", features = ["macros", "rt"] }
 stream-download = { version = "0.5.2", features = ["temp-storage"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+infer = "0.15.0"

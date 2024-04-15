@@ -21,11 +21,13 @@ pub async fn recognize_song_from_live_stream(
     /// Downloads 12 seconds from stream_url and searches for match on Shazam
     ///
 
-    const BUFFER_FILE_PATH: &str = "./rsrc/data.mp3";
+    const BUFFER_FILE_PATH: &str = "./rsrc/data";
 
-    radio_helpers::download_12_seconds_of_audio_stream(stream_url, BUFFER_FILE_PATH).await?;
+    let temp_download_path: String =
+        radio_helpers::download_12_seconds_of_audio_stream(stream_url, BUFFER_FILE_PATH).await?;
+
     let signature: DecodedSignature =
-        SignatureGenerator::make_signature_from_file(BUFFER_FILE_PATH)?;
+        SignatureGenerator::make_signature_from_file(&temp_download_path)?;
 
     let response = recognize_song_from_signature(&signature).await?;
     let track: shazam_result::RecognizedTrack =

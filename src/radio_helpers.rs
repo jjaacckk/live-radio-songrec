@@ -13,7 +13,7 @@ use stream_download::{Settings, StreamDownload};
 pub async fn download_12_seconds_of_audio_stream(
     stream_url: &str,
     download_path: &str,
-) -> Result<(), Box<dyn Error>> {
+) -> Result<String, Box<dyn Error>> {
     let stream = HttpStream::<Client>::create(stream_url.parse()?).await?;
     // let content_length = stream.content_length();
 
@@ -26,8 +26,17 @@ pub async fn download_12_seconds_of_audio_stream(
 
     reader.read_exact(&mut buf)?;
 
-    let mut file = File::create(download_path)?;
+    let stream_extension = match infer::get(&buf) {
+        Some(k) => format!(".{}", k.extension()),
+        None => "".to_string(), // default
+    };
+
+    let final_download_path = format!("{}{}", download_path, stream_extension);
+
+    println!("stream file name: {}", &final_download_path);
+
+    let mut file = File::create(&final_download_path)?;
     file.write_all(&buf)?;
 
-    Ok(())
+    Ok(final_download_path)
 }

@@ -24,7 +24,7 @@ async fn match_audio(buffer_file_path: &str) -> Result<serde_json::Value, Box<dy
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    const STREAM_URL: &str = "https://streamer.kuci.org:8088/high"; // KUCI 88.9 FM // https://128.195.119.7/high
+    const STREAM_URL: &str = "https://streamer.kuci.org:8088/high"; // KUCI 88.9 FM
 
     const BUFFER_FILE_PATH: &str = "./rsrc/data.mp3";
 
@@ -60,7 +60,3 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
-
-// let file_path: &str = "./test_files/Ping Pong Machine - Kumisolo [SHORT].mp3";
-// let signature: DecodedSignature = SignatureGenerator::make_signature_from_file(file_path)?;
-// println!("signature: {:?}", signature.encode_to_binary()?);

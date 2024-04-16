@@ -4,6 +4,7 @@ use chfft::RFft1D;
 use std::collections::HashMap;
 use std::error::Error;
 use std::io::BufReader;
+use std::path::PathBuf;
 
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
@@ -32,7 +33,9 @@ pub struct SignatureGenerator {
 }
 
 impl SignatureGenerator {
-    pub fn make_signature_from_file(file_path: &str) -> Result<DecodedSignature, Box<dyn Error>> {
+    pub fn make_signature_from_file(
+        file_path: &PathBuf,
+    ) -> Result<DecodedSignature, Box<dyn Error>> {
         // Decode the .WAV, .MP3, .OGG or .FLAC file
 
         let decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));

@@ -1,7 +1,9 @@
 use std::error::Error;
+use std::fs;
 use std::fs::File;
 use std::io::Read;
 use std::io::Write;
+use std::path::PathBuf;
 use std::result::Result;
 
 use stream_download::http::reqwest::Client;
@@ -12,8 +14,8 @@ use stream_download::{Settings, StreamDownload};
 
 pub async fn download_12_seconds_of_audio_stream(
     stream_url: &str,
-    download_path: &str,
-) -> Result<String, Box<dyn Error>> {
+    temp_dir_path: &PathBuf,
+) -> Result<PathBuf, Box<dyn Error>> {
     let stream = HttpStream::<Client>::create(stream_url.parse()?).await?;
     // let content_length = stream.content_length();
 
@@ -27,13 +29,21 @@ pub async fn download_12_seconds_of_audio_stream(
     reader.read_exact(&mut buf)?;
 
     let stream_extension = match infer::get(&buf) {
-        Some(k) => format!(".{}", k.extension()),
-        None => "".to_string(), // default
+        Some(k) => k.extension(),
+        None => "mp3", // default
     };
+    let mut final_download_path: PathBuf = temp_dir_path.clone();
+    final_download_path.set_extension(stream_extension);
 
-    let final_download_path = format!("{}{}", download_path, stream_extension);
+    // let final_download_path: PathBuf =
+    //     PathBuf::from(format!("{}.{}", download_path, stream_extension));
 
-    println!("stream file name: {}", &final_download_path);
+    // println!("stream file name: {}", final_download_path.display());
+
+    match final_download_path.parent() {
+        Some(p) => fs::create_dir_all(p).unwrap(),
+        None => (),
+    }
 
     let mut file = File::create(&final_download_path)?;
     file.write_all(&buf)?;

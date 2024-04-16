@@ -10,28 +10,29 @@ mod radio_helpers;
 pub mod shazam_result;
 
 use std::error::Error;
+use std::path::PathBuf;
 
 use crate::fingerprinting::algorithm::SignatureGenerator;
 use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::fingerprinting::signature_format::DecodedSignature;
 
+/// Downloads 12 seconds from stream_url and searches for match on Shazam
 pub async fn recognize_song_from_live_stream(
     stream_url: &str,
-) -> Result<shazam_result::RecognizedTrack, Box<dyn Error>> {
-    /// Downloads 12 seconds from stream_url and searches for match on Shazam
-    ///
+) -> Result<Option<shazam_result::RecognizedTrack>, Box<dyn Error>> {
+    let temp_dir_path: PathBuf = PathBuf::from("./temp/stream_data");
 
-    const BUFFER_FILE_PATH: &str = "./rsrc/data";
-
-    let temp_download_path: String =
-        radio_helpers::download_12_seconds_of_audio_stream(stream_url, BUFFER_FILE_PATH).await?;
+    let temp_file_path: PathBuf =
+        radio_helpers::download_12_seconds_of_audio_stream(stream_url, &temp_dir_path).await?;
 
     let signature: DecodedSignature =
-        SignatureGenerator::make_signature_from_file(&temp_download_path)?;
+        SignatureGenerator::make_signature_from_file(&temp_file_path)?;
 
     let response = recognize_song_from_signature(&signature).await?;
-    let track: shazam_result::RecognizedTrack =
-        shazam_result::RecognizedTrack::create_from_result(response)?;
+    let track_result = shazam_result::RecognizedTrack::create_from_result(response);
 
-    Ok(track)
+    Ok(match track_result {
+        Ok(track) => Some(track),
+        Err(_) => None,
+    })
 }

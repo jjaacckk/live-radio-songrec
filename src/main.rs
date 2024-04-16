@@ -1,4 +1,4 @@
-use radio_song_rec::shazam_result::RecognizedTrack;
+use live_radio_songrec::shazam_result::RecognizedTrack;
 use std::error::Error;
 
 #[tokio::main]
@@ -6,7 +6,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     const KUCI_STREAM_URL: &str = "https://streamer.kuci.org:8088/high"; // KUCI 88.9 FM, Irvine, CA
 
     let track_option: Option<RecognizedTrack> =
-        radio_song_rec::recognize_song_from_live_stream(KUCI_STREAM_URL).await?;
+        live_radio_songrec::recognize_song_from_live_stream(KUCI_STREAM_URL).await?;
 
     match track_option {
         Some(track) => {

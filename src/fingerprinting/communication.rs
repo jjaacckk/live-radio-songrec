@@ -74,24 +74,24 @@ pub async fn recognize_song_from_signature(
     Ok(response.json().await?)
 }
 
-pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
-    let mut headers = HeaderMap::new();
+// pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
+//     let mut headers = HeaderMap::new();
 
-    headers.insert(
-        "User-Agent",
-        USER_AGENTS
-            .choose(&mut rand::thread_rng())
-            .unwrap()
-            .parse()?,
-    );
-    headers.insert("Content-Language", "en_US".parse()?);
+//     headers.insert(
+//         "User-Agent",
+//         USER_AGENTS
+//             .choose(&mut rand::thread_rng())
+//             .unwrap()
+//             .parse()?,
+//     );
+//     headers.insert("Content-Language", "en_US".parse()?);
 
-    let client = reqwest::blocking::Client::new();
-    let response = client
-        .get(url)
-        .timeout(Duration::from_secs(20))
-        .headers(headers)
-        .send()?;
+//     let client = reqwest::blocking::Client::new();
+//     let response = client
+//         .get(url)
+//         .timeout(Duration::from_secs(20))
+//         .headers(headers)
+//         .send()?;
 
-    Ok(response.bytes()?.as_ref().to_vec())
-}
+//     Ok(response.bytes()?.as_ref().to_vec())
+// }

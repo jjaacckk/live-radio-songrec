@@ -1,11 +1,12 @@
 [package]
-name = "radio-song-rec"
+name = "live-radio-songrec"
 version = "1.0.0"
 edition = "2021"
 readme = "README.md"
 description = "Rust program to listen to live radio (audio) streams and recognize currently playing songs using Shazam."
-repository = "https://github.com/jjaacckk/live-radio-song-rec"
+repository = "https://github.com/jjaacckk/live-radio-songrec"
 exclude = ["test_files/*"]
+license = "GPL-3.0+"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

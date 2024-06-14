@@ -2,7 +2,7 @@
 
 use byteorder::{LittleEndian, WriteBytesExt};
 use crc32fast::Hasher;
-use gettextrs::gettext;
+// use gettextrs::gettext;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::error::Error;
@@ -246,7 +246,8 @@ impl DecodedSignature {
                 _ => {
                     panic!(
                         "{}",
-                        gettext("Invalid sample rate passed when encoding Shazam packet")
+                        // gettext("Invalid sample rate passed when encoding Shazam packet")
+                        "Invalid sample rate passed when encoding Shazam packet"
                     );
                 }
             } << 27,

@@ -57,7 +57,7 @@ impl RecognizedTrack {
                 _ => {
                     return Err(Box::new(std::io::Error::new(
                         std::io::ErrorKind::Other,
-                        gettextrs::gettext("No match for this song").as_str(),
+                        "No match for this song",
                     )))
                 }
             },
@@ -67,7 +67,7 @@ impl RecognizedTrack {
                 _ => {
                     return Err(Box::new(std::io::Error::new(
                         std::io::ErrorKind::Other,
-                        gettextrs::gettext("No match for this song").as_str(),
+                        "No match for this song",
                     )))
                 }
             },
@@ -81,7 +81,7 @@ impl RecognizedTrack {
                 _ => {
                     return Err(Box::new(std::io::Error::new(
                         std::io::ErrorKind::Other,
-                        gettextrs::gettext("No match for this song").as_str(),
+                        "No match for this song",
                     )))
                 }
             },

@@ -20,9 +20,9 @@ pub async fn recognize_song_from_signature(
 
     let post_data = json!({
         "geolocation": {
-            "altitude": 300,
-            "latitude": 45,
-            "longitude": 2
+            "altitude": 0,
+            "latitude": 39.09868,
+            "longitude": 120.02344
         },
         "signature": {
             "samplems": (signature.number_samples as f32 / signature.sample_rate_hz as f32 * 1000.) as u32,
@@ -30,7 +30,7 @@ pub async fn recognize_song_from_signature(
             "uri": signature.encode_to_uri()?
         },
         "timestamp": timestamp_ms as u32,
-        "timezone": "Europe/Paris"
+        "timezone": "America/Los_Angeles"
     });
 
     let uuid_1 = Uuid::new_v4().to_hyphenated().to_string().to_uppercase();

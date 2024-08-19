@@ -6,6 +6,8 @@ mod fingerprinting {
     mod user_agent;
 }
 
+// mod shazam_result_test;
+
 mod radio_helpers;
 pub mod shazam_result;
 
@@ -19,7 +21,7 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 /// Downloads 12 seconds from stream_url and searches for match on Shazam
 pub async fn recognize_song_from_live_stream(
     stream_url: &str,
-) -> Result<Option<shazam_result::RecognizedTrack>, Box<dyn Error>> {
+) -> Result<Option<shazam_result::ShazamResult>, Box<dyn Error>> {
     let temp_dir_path: PathBuf = PathBuf::from("./temp/stream_data");
 
     let temp_file_path: PathBuf =
@@ -29,7 +31,7 @@ pub async fn recognize_song_from_live_stream(
         SignatureGenerator::make_signature_from_file(&temp_file_path)?;
 
     let response = recognize_song_from_signature(&signature).await?;
-    let track_result = shazam_result::RecognizedTrack::create_from_result(response);
+    let track_result = shazam_result::ShazamResult::create_from_result(response);
 
     Ok(match track_result {
         Ok(track) => Some(track),

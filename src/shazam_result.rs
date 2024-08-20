@@ -3,7 +3,7 @@
 // https://github.com/marin-m/SongRec/blob/master/src/core/http_thread.rs
 
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
+use serde_json::{json, Value};
 use std::error::Error;
 
 #[derive(Deserialize, Serialize, Debug)]
@@ -67,9 +67,20 @@ pub struct UrlParams {
 }
 
 impl ShazamResult {
-    pub fn create_from_result(json_object: serde_json::Value) -> Result<Self, Box<dyn Error>> {
+    pub fn create_from_result(
+        json_object: serde_json::Value,
+    ) -> Result<Option<Self>, Box<dyn Error>> {
+        match json_object["matches"].as_array() {
+            Some(a) => {
+                if a.len() == 0 {
+                    return Ok(None);
+                }
+            }
+            None => return Ok(None),
+        }
+
         let result: ShazamResult = serde_json::from_value(json_object)?;
 
-        Ok(result)
+        Ok(Some(result))
     }
 }

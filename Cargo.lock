@@ -744,7 +744,7 @@ checksum = "01cda141df6706de531b6c46c3a33ecca755538219bd484262fa09410c13539c"
 
 [[package]]
 name = "live-radio-songrec"
-version = "2.0.0"
+version = "3.0.0"
 dependencies = [
  "base64 0.12.3",
  "byteorder",

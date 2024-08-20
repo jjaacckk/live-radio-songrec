@@ -9,10 +9,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .await
     {
         Ok(result) => {
-            println!(
-                "Match found:\n\t{} by {}",
-                result.track.title, result.track.subtitle
-            );
+            match result {
+                Some(r) => println!("Match found:\n\t{} by {}", r.track.title, r.track.subtitle),
+                None => println!("No match found"),
+            }
+
             // println!("{:?}", result);
             // println!(
             //     "\nAll Info:\n\ttitle:\t{}\n\tartist:\t{}\n\talbum:\t{}\n\tdate:\t{}\n\tgenre:\t{}\n\tkey:\t{}",

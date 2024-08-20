@@ -1,6 +1,6 @@
 [package]
 name = "live-radio-songrec"
-version = "2.0.0"
+version = "3.0.0"
 edition = "2021"
 readme = "README.md"
 description = "Rust program to listen to live radio (audio) streams and recognize currently playing songs using Shazam."

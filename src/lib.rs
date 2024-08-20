@@ -22,7 +22,7 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 pub async fn recognize_song_from_live_stream(
     stream_url: &str,
     temp_dir_path: &str,
-) -> Result<shazam_result::ShazamResult, Box<dyn Error>> {
+) -> Result<Option<shazam_result::ShazamResult>, Box<dyn Error>> {
     let temp_dir_path: PathBuf = PathBuf::from(temp_dir_path);
 
     let temp_file_path: PathBuf =

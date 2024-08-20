@@ -21,7 +21,7 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 /// Downloads 12 seconds from stream_url and searches for match on Shazam
 pub async fn recognize_song_from_live_stream(
     stream_url: &str,
-) -> Result<Option<shazam_result::ShazamResult>, Box<dyn Error>> {
+) -> Result<shazam_result::ShazamResult, Box<dyn Error>> {
     let temp_dir_path: PathBuf = PathBuf::from("./temp/stream_data");
 
     let temp_file_path: PathBuf =
@@ -33,8 +33,5 @@ pub async fn recognize_song_from_live_stream(
     let response = recognize_song_from_signature(&signature).await?;
     let track_result = shazam_result::ShazamResult::create_from_result(response);
 
-    Ok(match track_result {
-        Ok(track) => Some(track),
-        Err(_) => None,
-    })
+    track_result
 }

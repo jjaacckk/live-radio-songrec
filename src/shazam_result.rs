@@ -4,6 +4,7 @@
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::error::Error;
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct ShazamResult {
@@ -67,7 +68,7 @@ pub struct UrlParams {
 
 impl ShazamResult {
     pub fn create_from_result(json_object: serde_json::Value) -> Result<Self, Box<dyn Error>> {
-        let result: ShazamResult = json_object;
+        let result: ShazamResult = serde_json::from_value(json_object)?;
 
         Ok(result)
         // let mut album_name: Option<String> = None;

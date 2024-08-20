@@ -21,8 +21,9 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 /// Downloads 12 seconds from stream_url and searches for match on Shazam
 pub async fn recognize_song_from_live_stream(
     stream_url: &str,
+    temp_dir_path: &str,
 ) -> Result<shazam_result::ShazamResult, Box<dyn Error>> {
-    let temp_dir_path: PathBuf = PathBuf::from("./temp/stream_data");
+    let temp_dir_path: PathBuf = PathBuf::from(temp_dir_path);
 
     let temp_file_path: PathBuf =
         radio_helpers::download_12_seconds_of_audio_stream(stream_url, &temp_dir_path).await?;

@@ -5,7 +5,9 @@ use std::error::Error;
 async fn main() -> Result<(), Box<dyn Error>> {
     const KUCI_STREAM_URL: &str = "https://streamer.kuci.org:8088/high"; // KUCI 88.9 FM, Irvine, CA
 
-    match live_radio_songrec::recognize_song_from_live_stream(KUCI_STREAM_URL).await {
+    match live_radio_songrec::recognize_song_from_live_stream(KUCI_STREAM_URL, "./temp/stream_data")
+        .await
+    {
         Ok(result) => {
             println!(
                 "Match found:\n\t{} by {}",
